@@ -67,6 +67,10 @@ class ExceptionNotifier
     private
 
     def log_exception(exception, backtrace, kontroller=nil)
+      if Rails.env.test?
+        puts "Logged exception #{exception} - #{exception.class}" 
+        exception.backtrace.map { |line| puts line.sub ::Rails.root.to_s, '' }
+      end
       if kontroller.present?
         ExceptionLog.create(:controller => kontroller.controller_name, :action => kontroller.action_name, :name => exception.class.to_s, :message => exception.message, :backtrace => backtrace)
       else
