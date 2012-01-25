@@ -35,7 +35,6 @@ class ExceptionNotifier
            from_crawler(options[:ignore_crawlers], env['HTTP_USER_AGENT']) ||
            options[:ignore_if].call(exception)
       Notifier.exception_notification(env, exception)
-      env['exception_notifier.delivered'] = true
     end
 
     raise exception
