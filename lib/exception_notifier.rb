@@ -17,13 +17,8 @@ class ExceptionNotifier
   def initialize(app, options = {})
     @app, @options = app, options
 
-    Notifier.default_sender_address       = @options[:sender_address]
-    Notifier.default_exception_recipients = @options[:exception_recipients]
-    Notifier.default_email_prefix         = @options[:email_prefix]
     Notifier.default_sections             = @options[:sections]
     Notifier.default_background_sections  = @options[:background_sections]
-    Notifier.default_verbose_subject      = @options[:verbose_subject]
-    Notifier.default_normalize_subject    = @options[:normalize_subject]
 
     @options[:ignore_exceptions] ||= self.class.default_ignore_exceptions
     @options[:ignore_crawlers]   ||= self.class.default_ignore_crawlers
@@ -39,7 +34,7 @@ class ExceptionNotifier
     unless ignored_exception(options[:ignore_exceptions], exception)       ||
            from_crawler(options[:ignore_crawlers], env['HTTP_USER_AGENT']) ||
            options[:ignore_if].call(exception)
-      Notifier.exception_notification(env, exception).deliver
+      Notifier.exception_notification(env, exception)
       env['exception_notifier.delivered'] = true
     end
 
