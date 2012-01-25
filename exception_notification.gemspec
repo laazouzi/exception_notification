@@ -11,5 +11,4 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_development_dependency "rails", ">= 3.0.4"
-  s.add_development_dependency "sqlite3", ">= 1.3.4"
 end

@@ -1,4 +1,3 @@
-require 'pp'
 
 class ExceptionNotifier
   class Notifier < ActionMailer::Base
